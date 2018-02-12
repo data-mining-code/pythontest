@@ -1,0 +1,84 @@
+[
+  {
+    "tag": "question_words",
+    "words": [
+    	"who",
+    	"what",
+    	"where",
+    	"why",
+    	"how",
+    	"when",
+    	"have",
+    	"has"
+    ]
+  },
+  {
+    "tag": "locations",
+    "words": [
+    	"wedding",
+    	"kreuzberg",
+    	"berlin",
+    	"mitte",
+    	"lichtenberg",
+    	"spandau"
+    ]
+  },
+  {
+    "tag": "question_key_words",
+    "words": [
+    	"price",
+    	"address",
+    	"hours",
+    	"contact",
+    	"promotion",
+    	"sale",
+    	"receipt",
+    	"invoice",
+    	"purchase",
+    	"account",
+    	"stock"
+    ]
+  },
+  {
+    "tag": "products",
+    "words": [
+    	"chicken",
+    	"milk",
+    	"bread",
+    	"cheese",
+    	"tomato",
+    	"beef",
+    	"chocolate"
+    ]
+  },
+  {
+    "tag": "product_key_words",
+    "words": [
+    	"halal",
+    	"gluten-free",
+    	"vegan"
+    ]
+  },
+  {
+  	"tag": "positive",
+  	"words": [
+  		"good",
+  		"great",
+  		"perfect",
+  		"love",
+  		"happy",
+  		"fresh"
+  	]
+  },
+  {
+  	"tag": "negative",
+  	"words": [
+  		"bad",
+  		"rotten",
+  		"spoiled",
+  		"old",
+  		"expired",
+  		"broken"
+  	]
+  }  
+]
