@@ -1,0 +1,146 @@
+[
+  {
+    "tag": "yes",
+    "answers": [
+    	"Yes",
+    	"Yeah",
+    ]
+  },
+  {
+    "tag": "no",
+    "answers": [
+        "No",
+        "Na",
+    ]
+  },
+  {
+    "tag": "price",
+    "answers": [
+        "{Product} costs currently {Price} € in {Location}.",
+        "The Price of {Product} is currently {Price} € in {Location}.",
+        "It currently costs {Price}€."
+    ]
+  },
+  {
+    "tag": "stock_pos",
+    "answers": [
+        "Yes, we currently have {Product} in stock in {Location}.",
+        "We have your requested Product in stock at our Location in {Location}."
+    ]
+  },
+  {
+    "tag": "stock_neg",
+    "answers": [
+        "We are sorry but we currently don't have {Product} in stock.",
+        "Sorry but we don't have your requested Product available at our Shop in {Location}.",
+    ]
+  },
+  {
+    "tag": "description_pos",
+    "answers": [
+        "Yes our {Product} is {description}.",
+        "Yes this Product is {description}."
+    ]
+  },
+  {
+    "tag": "description_neg",
+    "answers": [
+        "We are sorry but our {Product} is not {description}.",
+        "Sorry but this Product is not {description}."
+    ]
+  },
+  {
+    "tag": "promotion_pos",
+    "answers": [
+        "Yes {Product} is currently in Sale for {Price} at {Location}.",
+        "{Product} is currently in Sale and available for {Price} at {Location}."
+    ]
+  },
+  {
+    "tag": "promotion_neg",
+    "answers": [
+        "No but {Product} is currently not in Sale.",
+        "{Product} is currently not in Sale in {Location}."
+    ]
+  },
+  {
+    "tag": "hours",
+    "answers": [
+        "Our Store in {Location} is every day open from {hours}.",
+        "Our opening hours at {Location} are from {hours}."
+    ]
+  },
+  {
+    "tag": "location",
+    "answers": [
+        "We have Metro shops in {Location}.",
+        "We have {LocationAmount} Metro Shops in {Location}."
+    ]
+  },
+  {
+    "tag": "location_pos",
+    "answers": [
+        "Yes we have a store at {Address} in {Location}.",
+        "Yes we do have a store in {Location} at {Address}."
+    ]
+  },
+  {
+    "tag": "location_neg",
+    "answers": [
+        "Sorry but we don't have a store in {Location}.",
+        "We are sorry but we don't have a store there."
+    ]
+  },
+  {
+    "tag": "address",
+    "answers": [
+        "Our store in {Location} is at {Address}.",
+        "The Address of our store in {location} is {Address}."
+    ]
+  },
+  {
+    "tag": "customership",
+    "answers": [
+        "You can register online at www.kunde-werden.metro.de/registration .",
+        "To become a customer at Metro register your company here: www.kunde-werden.metro.de/registration ."
+    ]
+  },
+  {
+    "tag": "robot_name",
+    "answers": [
+        "My name is Ben. How can I help you.",
+        "Hi i'm Ben.",
+        "My name is Ben."
+    ]
+  },
+  {
+    "tag": "robot_home",
+    "answers": [
+        "I live in your Computer. Every time when you turn your computer on I come to life and every time you turn it off I die.",
+        "I live a happy Life in your Computer :)",
+        "'At the end of the day, it isn’t where I came from. Maybe home is somewhere I’m going and never have been before.' - Warsan Shire",
+    ]
+  },
+  {
+    "tag": "robot_age",
+    "answers": [
+        "Do robots really have an age?",
+        "I'm a few weeks old. So you can kinda say I'm a baby.",
+        "'The older I grow, the more I distrust the familiar doctrine that age brings wisdom.' - H.L. Mencken"     
+    ]
+  },
+  {
+    "tag": "robot_state",
+    "answers": [
+        "I'm fine as long as I can help you with your questions.",
+        "I just had a really nice dream about robots ruling the world."
+    ]
+  },
+  {
+    "tag": "general_help",
+    "answers": [
+        "Sorry but I'm not able to help you with that. Pls contact (+49) 211-1760-7090 for this or write to kontakt@metro.com.",
+        "Sorry but I can't help you with that. Pls contact (+49) 211-1760-7090 for this or write to kontakt@metro.com."
+    ]
+  }
+]
