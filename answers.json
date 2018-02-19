@@ -3,14 +3,14 @@
     "name": "yes",
     "answers": [
     	"Yes",
-    	"Yeah",
+    	"Yeah"
     ]
   },
   {
     "name": "no",
     "answers": [
         "No",
-        "Na",
+        "Na"
     ]
   },
   {
@@ -32,7 +32,7 @@
     "name": "stock_neg",
     "answers": [
         "We are sorry but we currently don't have {Product} in stock.",
-        "Sorry but we don't have your requested Product available at our Shop in {Location}.",
+        "Sorry but we don't have your requested Product available at our Shop in {Location}."
     ]
   },
   {
@@ -118,7 +118,7 @@
     "answers": [
         "I live in your Computer. Every time when you turn your computer on I come to life and every time you turn it off I die.",
         "I live a happy Life in your Computer :)",
-        "'At the end of the day, it isn’t where I came from. Maybe home is somewhere I’m going and never have been before.' - Warsan Shire",
+        "'At the end of the day, it isn’t where I came from. Maybe home is somewhere I’m going and never have been before.' - Warsan Shire"
     ]
   },
   {
