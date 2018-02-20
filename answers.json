@@ -17,7 +17,7 @@
     "name": "price",
     "answers": [
         "{Product} costs currently {Price} € in {Location}.",
-        "The Price of {Product} is currently {Price} € in {Location}.",
+        "The Price of {Product} is currently {Price}€ in {Location}.",
         "It currently costs {Price}€."
     ]
   },
@@ -52,14 +52,14 @@
   {
     "name": "promotion_pos",
     "answers": [
-        "Yes {Product} is currently in Sale for {Price} at {Location}.",
-        "{Product} is currently in Sale and available for {Price} at {Location}."
+        "Yes {Product} is currently in Sale for {Price}€ at {Location}.",
+        "{Product} is currently in Sale and available for {Price}€ at {Location}."
     ]
   },
   {
     "name": "promotion_neg",
     "answers": [
-        "No but {Product} is currently not in Sale.",
+        "Sorry but {Product} is currently not in Sale.",
         "{Product} is currently not in Sale in {Location}."
     ]
   },

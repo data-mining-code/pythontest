@@ -11,7 +11,6 @@ import pyrebase
 
 app = Flask(__name__)
 
-
 config = {
   "apiKey": "AIzaSyAYgX0LDDKOXENgVHQU3WV90oCBlNeUmPE",
   "authDomain": "metro-data-mining.firebaseapp.com",
@@ -35,7 +34,6 @@ intentfile = open('intents.json','r')	# Open Intent Json File and read it into a
 intents = json.load(intentfile)
 intentfile.close()
 
-
 inventory = db.child("0").child("products").get(user['idToken']).val()
 
 def instock(productid):
@@ -46,13 +44,28 @@ def instock(productid):
 	else:
 		return answers[4]['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",str(store))
 
+def discount(productid):
+	product = db.child("0").child("products").child(str(productid - 1)).get(user['idToken']).val()
+	store = db.child("0").child("storeName").get(user['idToken']).val() 
+	if product['promotion'] == 'Yes':
+		return answers[7]['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",str(store)).replace("{Price}",str(product['price']))
+	else:
+		return answers[8]['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",str(store)).replace("{Price}",str(product['price']))
+
+def openinghours():
+	store = db.child("0").child("storeName").get(user['idToken']).val() 
+	hours = db.child("0").child("openingHours").get(user['idToken']).val() 
+	return answers[9]['answers'][randint(0,1)].replace("{Location}",str(store)).replace("{hours}",hours)
+
 @app.route("/")
 def hello():
 	input = request.args.get('input')		# Get Input from Broker
 	input_list = input.lower().split(" ")	# Make the input lowercase
 	if '?' in input_list[-1] and len(input_list[-1]) > 1: input_list[-1] = input_list[-1][:-1]
 	query = {}
-	testlst = []
+	for intent in intents:
+		query[intent['tag']] = []
+	query['products'] = []
 	for word in input_list:	
 		for intent in intents:
 			for iword in intent['words']:
@@ -60,23 +73,23 @@ def hello():
 				for iw in iword_list:
 					if word == iw and intent['tag'] in query.keys():
 						query[intent['tag']].append(iword)
-					elif word == iw:
-						query[intent['tag']] = [iword]
 		for item in inventory:
 			test = item['name'].lower().split(" ")
-			testlst.append(test)
 			for iw in test:
 				if word == iw and "products" in query.keys():
-					query['products'].append(item['id'])
-				elif word == iw:
-					query['products'] = [item['id']] 
+					query['products'].append(item['id']) 
 	for key in query.keys():
-		query[key] = Counter(query[key]).most_common()[0][0]
+		if len(query[key]) != 0:
+			query[key] = Counter(query[key]).most_common()[0][0]
 
-	if query['question_words'] == 'have' and query['question_key_words'] == 'stock':
+	if query['question_words'] == 'have' and query['question_key_words'] == 'stock' and query['products'] != []:
 		answer = instock(query['products'])
+	elif query['question_words'] == 'is' or query['question_words'] == 'have' and query['question_key_words'] == 'discount' and query['products'] != []:
+		answer = discount(query['products'])
+	elif query['question_words'] == 'when' and query['question_key_words'] == 'open' or query['question_key_words'] == 'hours':
+		answer = openinghours()
 	else:
-		answer = "Your Request couldn't be handled " + json.dumb(query)
+		answer = "Your Request couldn't be handled " + json.dumps(query)
 
 	return answer
 
