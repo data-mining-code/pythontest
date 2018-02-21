@@ -59,39 +59,54 @@ def openinghours():
 
 @app.route("/")
 def hello():
-	input = request.args.get('input')		# Get Input from Broker
-	input_list = input.lower().split(" ")	# Make the input lowercase
-	if '?' in input_list[-1] and len(input_list[-1]) > 1: input_list[-1] = input_list[-1][:-1]
-	query = {}
-	for intent in intents:
-		query[intent['tag']] = []
-	query['products'] = []
-	for word in input_list:	
-		for intent in intents:
-			for iword in intent['words']:
-				iword_list = iword.split(" ")
-				for iw in iword_list:
-					if word == iw and intent['tag'] in query.keys():
-						query[intent['tag']].append(iword)
-		for item in inventory:
-			test = item['name'].lower().split(" ")
-			for iw in test:
-				if word == iw and "products" in query.keys():
-					query['products'].append(item['id']) 
-	for key in query.keys():
-		if len(query[key]) != 0:
-			query[key] = Counter(query[key]).most_common()[0][0]
+	input = {}
+	
+	input['client'] = request.args.get('client') 		# Get Input from Broker 
 
-	if query['question_words'] == 'have' and query['question_key_words'] == 'stock' and query['products'] != []:
-		answer = instock(query['products'])
-	elif query['question_words'] == 'is' or query['question_words'] == 'have' and query['question_key_words'] == 'discount' and query['products'] != []:
-		answer = discount(query['products'])
-	elif query['question_words'] == 'when' and query['question_key_words'] == 'open' or query['question_key_words'] == 'hours':
-		answer = openinghours()
-	else:
-		answer = "Your Request couldn't be handled " + json.dumps(query)
 
-	return answer
+
+	if input['client'] == 'stock':
+		input['product'] = request.args.get('product')
+		input['location'] = request.args.get('location')
+
+		
+
+
+
+
+
+	# input_list = input.lower().split(" ")	# Make the input lowercase
+	# if '?' in input_list[-1] and len(input_list[-1]) > 1: input_list[-1] = input_list[-1][:-1]
+	# query = {}
+	# for intent in intents:
+	# 	query[intent['tag']] = []
+	# query['products'] = []
+	# for word in input_list:	
+	# 	for intent in intents:
+	# 		for iword in intent['words']:
+	# 			iword_list = iword.split(" ")
+	# 			for iw in iword_list:
+	# 				if word == iw and intent['tag'] in query.keys():
+	# 					query[intent['tag']].append(iword)
+	# 	for item in inventory:
+	# 		test = item['name'].lower().split(" ")
+	# 		for iw in test:
+	# 			if word == iw and "products" in query.keys():
+	# 				query['products'].append(item['id']) 
+	# for key in query.keys():
+	# 	if len(query[key]) != 0:
+	# 		query[key] = Counter(query[key]).most_common()[0][0]
+
+	# if query['question_words'] == 'have' and query['question_key_words'] == 'stock' and query['products'] != []:
+	# 	answer = instock(query['products'])
+	# elif query['question_words'] == 'is' or query['question_words'] == 'have' and query['question_key_words'] == 'discount' and query['products'] != []:
+	# 	answer = discount(query['products'])
+	# elif query['question_words'] == 'when' and query['question_key_words'] == 'open' or query['question_key_words'] == 'hours':
+	# 	answer = openinghours()
+	# else:
+	# 	answer = "Your Request couldn't be handled " + json.dumps(query)
+
+	return json.dumps(input)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
