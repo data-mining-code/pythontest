@@ -56,7 +56,7 @@ def openinghours(store_name):
 	hours = db.child("0").child("openingHours").get(user['idToken']).val() 
 	return answers[9]['answers'][randint(0,1)].replace("{Location}",store_name).replace("{hours}",hours)
 
-def matchprodcuct(inp_product):
+def matchproduct(inp_product):
 	inp_product_list = inp_product.lower().split(" ")
 	match_products = []
 	for input_product in inp_product_list:
@@ -81,7 +81,7 @@ def hello():
 	store_name = str(db.child("0").child("storeName").get(user['idToken']).val()) 
 	
 	if input['client'] == 'stock' or input['client'] == 'discount':
-		product_id = matchprodcuct(input['product'])
+		product_id = matchproduct(input['product'])
 		if not product_id:
 			qs = "We are sorry but we couldn't find this product."
 		else:
