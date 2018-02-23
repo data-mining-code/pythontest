@@ -38,15 +38,15 @@
   {
     "name": "description_pos",
     "answers": [
-        "Yes our {Product} is {description}.",
-        "Yes this Product is {description}."
+        "Yes our {Product} is {Description}.",
+        "Yes this Product is {Description}."
     ]
   },
   {
     "name": "description_neg",
     "answers": [
-        "We are sorry but our {Product} is not {description}.",
-        "Sorry but this Product is not {description}."
+        "We are sorry but our {Product} is not {Description}.",
+        "Sorry but this Product is not {Description}."
     ]
   },
   {
@@ -95,7 +95,7 @@
     "name": "address",
     "answers": [
         "Our store in {Location} is at {Address}.",
-        "The Address of our store in {location} is {Address}."
+        "The Address of our store in {Location} is {Address}."
     ]
   },
   {
