@@ -59,12 +59,10 @@ def openinghours(store_name):
 def matchprodcuct(inp_product):
 	inp_product_list = inp_product.lower().split(" ")
 	match_products = []
-	test = []
 	for input_product in inp_product_list:
 		for product in inventory:
-			product_str = product['name'].lower().split(" ")
-			for product_part in product_str:
-				test.append([product_part])
+			product_list = product['name'].lower().split(" ")
+			for product_part in product_list:
 				if input_product == product_part:
 					match_products.append(product['id'])
 	if len(match_products) != 0:
@@ -84,10 +82,10 @@ def hello():
 	
 	if input['client'] == 'stock' or input['client'] == 'discount':
 		product_id = matchprodcuct(input['product'])
-		if not input['product']:
+		if not product_id:
 			qs = "We are sorry but we couldn't find this product."
 		else:
-			input['product'] = db.child("0").child("products").child(str(product_id - 1)).get(user['idToken']).val()
+			input['product'] = db.child("0").child("products").child(str(product_partid - 1)).get(user['idToken']).val()
 			if input['client'] == 'stock':
 				qs = instock(input['product'], store_name)
 			elif input['client'] == 'discount':
