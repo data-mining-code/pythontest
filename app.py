@@ -64,7 +64,7 @@ def description(product, product_key_words):
 	return answ['answers'][randint(0,1)].replace("{Product}", product['name']).replace("{Description}", product_key_words)
 
 def get_all_locations():
-	store_data = db.child("metro-data-mining").get(user['idToken']).val()
+	store_data = db.get(user['idToken']).val()
 	store_list = []
 	store_amount = 0
 	for store in store_data:
@@ -75,10 +75,10 @@ def get_all_locations():
 		output_string = ', '.join(store_list) + " and " + last_store
 	else:
 		output_string = store_list[0]
-	return answers[10]['answers'][randint(0,1)].replace("{Location}", output_string).replace('{LocationAmount}', store_amount)
+	return answers[10]['answers'][randint(0,1)].replace("{Location}", output_string).replace('{LocationAmount}', str(store_amount))
 
 def match_location(location):
-	store_data = db.child("metro-data-mining").get(user['idToken']).val()
+	store_data = db.get(user['idToken']).val()
 	for store in store_data:
 		if store['storeName'].lower() == location.lower():
 			return store
@@ -139,7 +139,10 @@ def hello():
 	elif input['client'] == 'all_locations':
 		qs = get_all_locations()
 	elif input['client'] == 'location' or input['client'] == 'address':
-		qs = get_location(input['location'], input['client'])
+		if input['location']:
+			qs = get_location(input['location'], input['client'])
+		else:
+			qs = 'You didnt give us a location'
 	else:
 		qs = answers[19]['answers'][randint(0,1)]
 	return qs
