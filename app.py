@@ -118,16 +118,16 @@ def matchproduct(inp_product):
 def hello():
 	input = {}
 	for param in inputparams:
+		print(request.args.get(param))
 		input[param] = request.args.get(param)
 	
 	store_name = str(db.child("0").child("storeName").get(user['idToken']).val()) 
 	
 	if input['client'] == 'stock' or input['client'] == 'discount' or input['client'] == 'description':
-		product_id = matchproduct(input['product'])
-		if not product_id:
+		if not input['product'] or input['product'] == 'undefined':
 			qs = "We are sorry but we couldn't find this product."
 		else:
-			input['product'] = db.child("0").child("products").child(str(product_id - 1)).get(user['idToken']).val()
+			input['product'] = db.child("0").child("products").child(input['product']).get(user['idToken']).val()
 			if input['client'] == 'stock':
 				qs = instock(input['product'], store_name)
 			elif input['client'] == 'discount':
