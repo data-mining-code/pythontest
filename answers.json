@@ -3,21 +3,21 @@
     "name": "yes",
     "answers": [
     	"Yes",
-    	"Yeah",
+    	"Yeah"
     ]
   },
   {
     "name": "no",
     "answers": [
         "No",
-        "Na",
+        "Na"
     ]
   },
   {
     "name": "price",
     "answers": [
         "{Product} costs currently {Price} € in {Location}.",
-        "The Price of {Product} is currently {Price} € in {Location}.",
+        "The Price of {Product} is currently {Price}€ in {Location}.",
         "It currently costs {Price}€."
     ]
   },
@@ -32,34 +32,34 @@
     "name": "stock_neg",
     "answers": [
         "We are sorry but we currently don't have {Product} in stock.",
-        "Sorry but we don't have your requested Product available at our Shop in {Location}.",
+        "Sorry but we don't have your requested Product available at our Shop in {Location}."
     ]
   },
   {
     "name": "description_pos",
     "answers": [
-        "Yes our {Product} is {description}.",
-        "Yes this Product is {description}."
+        "Yes our {Product} is {Description}.",
+        "Yes this Product is {Description}."
     ]
   },
   {
     "name": "description_neg",
     "answers": [
-        "We are sorry but our {Product} is not {description}.",
-        "Sorry but this Product is not {description}."
+        "We are sorry but our {Product} is not {Description}.",
+        "Sorry but this Product is not {Description}."
     ]
   },
   {
     "name": "promotion_pos",
     "answers": [
-        "Yes {Product} is currently in Sale for {Price} at {Location}.",
-        "{Product} is currently in Sale and available for {Price} at {Location}."
+        "Yes {Product} is currently in Sale for {Price}€ at {Location}.",
+        "{Product} is currently in Sale and available for {Price}€ at {Location}."
     ]
   },
   {
     "name": "promotion_neg",
     "answers": [
-        "No but {Product} is currently not in Sale.",
+        "Sorry but {Product} is currently not in Sale.",
         "{Product} is currently not in Sale in {Location}."
     ]
   },
@@ -95,7 +95,7 @@
     "name": "address",
     "answers": [
         "Our store in {Location} is at {Address}.",
-        "The Address of our store in {location} is {Address}."
+        "The Address of our store in {Location} is {Address}."
     ]
   },
   {
@@ -118,7 +118,7 @@
     "answers": [
         "I live in your Computer. Every time when you turn your computer on I come to life and every time you turn it off I die.",
         "I live a happy Life in your Computer :)",
-        "'At the end of the day, it isn’t where I came from. Maybe home is somewhere I’m going and never have been before.' - Warsan Shire",
+        "'At the end of the day, it isn’t where I came from. Maybe home is somewhere I’m going and never have been before.' - Warsan Shire"
     ]
   },
   {
