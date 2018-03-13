@@ -25,7 +25,7 @@ db = firebase.database()
 auth = firebase.auth()
 
 # Log the user in
-user = auth.sign_in_with_email_and_password('metrodatamining@code.berlin', 'test123')
+#user = auth.sign_in_with_email_and_password('metrodatamining@code.berlin', 'test123')
 
 inputparams = ['client','product','location', 'product_key_words']
 
@@ -33,7 +33,7 @@ answerfile = open('answers.json','r')	# Open Intent Json File and read it into a
 answers = json.load(answerfile)
 answerfile.close()
 
-inventory = db.child("0").child("products").get(user['idToken']).val()
+#inventory = db.child("0").child("products").get(user['idToken']).val()
 
 def instock(product,store_name):
 	if product['stock'] == 'Yes':
@@ -50,7 +50,7 @@ def discount(product,store_name):
 	return answ['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",store_name).replace("{Price}",str(product['price']))
 
 def openinghours(store_name):
-	hours = db.child("0").child("openingHours").get(user['idToken']).val() 
+	hours = db.child("0").child("openingHours").get().val() 
 	return answers[9]['answers'][randint(0,1)].replace("{Location}",store_name).replace("{hours}",hours)
 
 def description(product, product_key_words):
@@ -64,7 +64,7 @@ def description(product, product_key_words):
 	return answ['answers'][randint(0,1)].replace("{Product}", product['name']).replace("{Description}", product_key_words)
 
 def get_all_locations():
-	store_data = db.get(user['idToken']).val()
+	store_data = db.get().val()
 	store_list = []
 	store_amount = 0
 	for store in store_data:
@@ -78,7 +78,7 @@ def get_all_locations():
 	return answers[10]['answers'][randint(0,1)].replace("{Location}", output_string).replace('{LocationAmount}', str(store_amount))
 
 def match_location(location):
-	store_data = db.get(user['idToken']).val()
+	store_data = db.get().val()
 	for store in store_data:
 		if store['storeName'].lower() == location.lower():
 			return store
@@ -121,13 +121,13 @@ def hello():
 		print(request.args.get(param))
 		input[param] = request.args.get(param)
 	
-	store_name = str(db.child("0").child("storeName").get(user['idToken']).val()) 
+	store_name = str(db.child("0").child("storeName").get().val()) 
 	
 	if input['client'] == 'stock' or input['client'] == 'discount' or input['client'] == 'description':
 		if not input['product'] or input['product'] == 'undefined':
 			qs = "We are sorry but we couldn't find this product."
 		else:
-			input['product'] = db.child("0").child("products").child(input['product']).get(user['idToken']).val()
+			input['product'] = db.child("0").child("products").child(input['product']).get().val()
 			if input['client'] == 'stock':
 				qs = instock(input['product'], store_name)
 			elif input['client'] == 'discount':
