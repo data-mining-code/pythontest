@@ -27,7 +27,7 @@ auth = firebase.auth()
 # Log the user in
 #user = auth.sign_in_with_email_and_password('metrodatamining@code.berlin', 'test123')
 
-inputparams = ['client','product','location', 'product_key_words']
+inputparams = ['client','productid','location', 'product_key_words']
 
 answerfile = open('answers.json','r')	# Open Intent Json File and read it into a Dictionary
 answers = json.load(answerfile)
@@ -124,10 +124,10 @@ def hello():
 	store_name = str(db.child("0").child("storeName").get().val()) 
 	
 	if input['client'] == 'stock' or input['client'] == 'discount' or input['client'] == 'description':
-		if not input['product'] or input['product'] == 'undefined':
+		if not input['productid'] or input['productid'] == 'undefined':
 			qs = "We are sorry but we couldn't find this product."
 		else:
-			input['product'] = db.child("0").child("products").child(input['product']).get().val()
+			input['product'] = db.child("0").child("products").child(input['productid']).get().val()
 			if input['client'] == 'stock':
 				qs = instock(input['product'], store_name)
 			elif input['client'] == 'discount':
