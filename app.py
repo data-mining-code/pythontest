@@ -3,13 +3,16 @@ from collections import Counter
 import os
 import socket
 import numpy as np # linear algebr
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
-import pandas as pd
 from random import randint
 import json
 import pyrebase
+from Chatbot import Chatbot
+from algoliasearch import algoliasearch
 
 app = Flask(__name__)
+
+client = algoliasearch.Client("ZFM0QHO6CJ", 'a0c165db0399708ee07361211ccdcfbb')
+index = client.init_index('products')
 
 config = {
   "apiKey": "AIzaSyAYgX0LDDKOXENgVHQU3WV90oCBlNeUmPE",
@@ -27,31 +30,27 @@ auth = firebase.auth()
 # Log the user in
 #user = auth.sign_in_with_email_and_password('metrodatamining@code.berlin', 'test123')
 
-inputparams = ['client','productid','location', 'product_key_words']
-
 answerfile = open('answers.json','r')	# Open Intent Json File and read it into a Dictionary
 answers = json.load(answerfile)
 answerfile.close()
 
-#inventory = db.child("0").child("products").get(user['idToken']).val()
-
-def instock(product,store_name):
+def instock(product,store):
 	if product['stock'] == 'Yes':
 		answ = answers[3]
 	else:
 		answ = answers[4]
-	return answ['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",store_name)
+	return answ['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",store['storeName'])
 
-def discount(product,store_name):
+def discount(product,store):
 	if product['promotion'] == 'Yes':
 		answ = answers[7]
 	else:
 		answ = answers[8]
-	return answ['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",store_name).replace("{Price}",str(product['price']))
+	return answ['answers'][randint(0,1)].replace("{Product}",product['name']).replace("{Location}",store['storeName']).replace("{Price}",str(product['price']))
 
-def openinghours(store_name):
-	hours = db.child("0").child("openingHours").get().val() 
-	return answers[9]['answers'][randint(0,1)].replace("{Location}",store_name).replace("{hours}",hours)
+def openinghours(store):
+	hours = db.child(store['id']).child("openingHours").get().val() 
+	return answers[9]['answers'][randint(0,1)].replace("{Location}",store['storeName']).replace("{hours}",hours)
 
 def description(product, product_key_words):
 	product_description = product['description'].lower().split(", ")
@@ -98,44 +97,41 @@ def get_location(location, client):
 		address = ""
 	return answ['answers'][randint(0,1)].replace("{Location}", location).replace("{Address}", address)
 
-def matchproduct(inp_product):
-	inp_product_list = inp_product.lower().split(" ")
-	match_products = []
-	for input_product in inp_product_list:
-		for product in inventory:
-			product_list = product['name'].lower().split(" ")
-			for product_part in product_list:
-				if input_product == product_part:
-					match_products.append(product['id'])
-	if len(match_products) != 0:
-		final_product = Counter(match_products).most_common()[0][0]
-		return final_product
-	else:
-		return 
-
-
 @app.route("/")
 def hello():
-	input = {}
-	for param in inputparams:
-		print(request.args.get(param))
-		input[param] = request.args.get(param)
+	input_string = request.args.get('string')
 	
-	store_name = str(db.child("0").child("storeName").get().val()) 
-	
-	if input['client'] == 'stock' or input['client'] == 'discount' or input['client'] == 'description':
-		if not input['productid'] or input['productid'] == 'undefined':
-			qs = "We are sorry but we couldn't find this product."
+	chatbot = Chatbot()
+	input = chatbot.process_message(input_string)
+
+	if not input['location']:
+		store = db.child("0").get().val() 
+	else:
+		store = match_location(input['location'])
+
+	if input['client'] == 'stock' or input['client'] == 'sale' or input['client'] == 'description':
+		if not input['product'] or input['product'] == '':
+			qs = "We are sorry but you have to give us a product name."
 		else:
-			input['product'] = db.child("0").child("products").child(input['productid']).get().val()
-			if input['client'] == 'stock':
-				qs = instock(input['product'], store_name)
-			elif input['client'] == 'discount':
-				qs = discount(input['product'], store_name)
-			elif input['client'] == 'description':
-				qs = description(input['product'], input['product_key_words'])
+			res = index.search(input['product'], {"hitsPerPage": 1})
+			if len(res['hits']) > 0:
+				input['productid'] = res['hits'][0]['objectID']
+				input['product'] = res['hits'][0]['name']
+				input['product'] = db.child(store['id']).child("products").child(input['productid']).get().val()
+				
+				if input['client'] == 'stock':
+					qs = instock(input['product'], store)
+				elif input['client'] == 'sale':
+					qs = discount(input['product'], store)
+				elif input['client'] == 'description':
+					qs = description(input['product'], input['description'])
+			else:
+				qs = "We are sorry but we couldn't find this product."
 	elif input['client'] == 'hours':
-		qs = openinghours(store_name)
+		if store:
+			qs = openinghours(store)
+		else:
+			qs = "We are sorry but we couldn't find this store?"
 	elif input['client'] == 'all_locations':
 		qs = get_all_locations()
 	elif input['client'] == 'location' or input['client'] == 'address':
@@ -148,5 +144,4 @@ def hello():
 	return qs
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
-
+	app.run(host='0.0.0.0', port=80)

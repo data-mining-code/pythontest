@@ -18,7 +18,7 @@
     "answers": [
         "{Product} costs currently {Price} € in {Location}.",
         "The Price of {Product} is currently {Price}€ in {Location}.",
-        "It currently costs {Price}€."
+        "It currently costs {Price}€ in {Location}."
     ]
   },
   {
@@ -31,7 +31,7 @@
   {
     "name": "stock_neg",
     "answers": [
-        "We are sorry but we currently don't have {Product} in stock.",
+        "We are sorry but we currently don't have {Product} in stock in {Location}.",
         "Sorry but we don't have your requested Product available at our Shop in {Location}."
     ]
   },
@@ -59,7 +59,7 @@
   {
     "name": "promotion_neg",
     "answers": [
-        "Sorry but {Product} is currently not in Sale.",
+        "Sorry but {Product} is currently not in Sale in {Location}.",
         "{Product} is currently not in Sale in {Location}."
     ]
   },
@@ -73,8 +73,8 @@
   {
     "name": "location",
     "answers": [
-        "We have Metro shops in {Location}.",
-        "We have {LocationAmount} Metro Shops in {Location}."
+        "We have shops in {Location}.",
+        "We have {LocationAmount} Shops in {Location}."
     ]
   },
   {
@@ -101,8 +101,8 @@
   {
     "name": "customership",
     "answers": [
-        "You can register online at www.kunde-werden.metro.de/registration .",
-        "To become a customer at Metro register your company here: www.kunde-werden.metro.de/registration ."
+        "You can register online at www.kunde-werden.de/registration .",
+        "To become a customer at Metro register your company here: www.kunde-werden.de/registration ."
     ]
   },
   {
@@ -139,8 +139,8 @@
   {
     "name": "general_help",
     "answers": [
-        "Sorry but I'm not able to help you with that. Pls contact (+49) 211-1760-7090 for this or write to kontakt@metro.com.",
-        "Sorry but I can't help you with that. Pls contact (+49) 211-1760-7090 for this or write to kontakt@metro.com."
+        "Sorry but I'm not able to help you with that. Pls contact (+49) 211-1760-7091 for this or write to kontakt@company.com.",
+        "Sorry but I can't help you with that. Pls contact (+49) 211-1760-7091 for this or write to kontakt@company.com."
     ]
   }
 ]
